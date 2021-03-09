@@ -1,16 +1,13 @@
 package pl.mateuszlukaszczyk.gitRepositories.services;
 
-import org.apache.tomcat.util.json.ParseException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 import pl.mateuszlukaszczyk.gitRepositories.models.GitResponse;
 
-import java.net.URL;
-import java.time.LocalDate;
-import java.util.UUID;
-
+@Component
 public class JsonParser {
 
-    public static GitResponse parse(String responseBody) throws ParseException {
+    public static GitResponse parse(String responseBody) {
         JSONObject gitObject = new JSONObject(responseBody);
         return GitResponse.builder()
                 .id((Integer) gitObject.get("id"))

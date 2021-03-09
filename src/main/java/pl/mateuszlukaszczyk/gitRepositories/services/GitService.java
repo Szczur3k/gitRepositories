@@ -1,20 +1,24 @@
 package pl.mateuszlukaszczyk.gitRepositories.services;
 
-import org.apache.tomcat.util.json.ParseException;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.mateuszlukaszczyk.gitRepositories.models.GitResponse;
 
 @Service
+@ComponentScan
 public class GitService {
 
-    GitResponse gitResponse = new GitResponse();
-    HttpClient httpClient = new HttpClient();
+    HttpClient httpClient;
 
-    public String getHttpClientResponse(HttpClient httpClient){
-        return httpClient.response;
+    public String getHttpClientResponseFromOwnerRepository(String owner, String repositoryName) {
+        return httpClient.getResponseFromOwnerRepository(owner, repositoryName);
     }
 
-    public GitResponse getGitResponse() throws ParseException {
-        return JsonParser.parse(httpClient.response);
+    public ResponseEntity<GitResponse> getGitResponseInEntity(String owner) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(JsonParser.parse(httpClient.getResponseFromOwner(owner)));
     }
 }

@@ -4,11 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
+@Component
 public class GitResponse {
 
     String login;
