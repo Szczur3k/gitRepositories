@@ -1,7 +1,5 @@
 package pl.mateuszlukaszczyk.gitRepositories.controllers;
 
-import org.apache.tomcat.util.json.ParseException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,14 +20,20 @@ public class GitController {
         return "Now I will start to writing an application";
     }
 
-    @GetMapping("/repositories/{owner}/{repository-name")
-    public String getApiGit(@PathVariable(value = "owner") String owner,@PathVariable(value = "repository-name") String repositoryName) {
-        return gitService.getHttpClientResponseFromOwnerRepository(owner, repositoryName);
+    @GetMapping("/repositories/{owner}/repos")
+    public String getApiGit(@PathVariable(value = "owner") String owner){
+        return gitService.getHttpClientResponseFromOwnerRepository(owner);
     }
 
     @GetMapping("/repositories/{owner}/")
-    public ResponseEntity<GitResponse> getApiGitResponse(@PathVariable(value = "owner") String owner) {
+    public GitResponse getApiGitResponse(@PathVariable(value = "owner") String owner) {
         return gitService.getGitResponseInEntity(owner);
+
+    }
+
+    @GetMapping("/repositories")
+    public GitResponse getApiFromOwnerDefunkt() {
+        return gitService.getApiDefunkt();
 
     }
 

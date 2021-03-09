@@ -7,7 +7,7 @@ import pl.mateuszlukaszczyk.gitRepositories.models.GitResponse;
 @Component
 public class JsonParser {
 
-    public static GitResponse parse(String responseBody) {
+    public static GitResponse parseResponseToGitResponse(String responseBody) {
         JSONObject gitObject = new JSONObject(responseBody);
         return GitResponse.builder()
                 .id((Integer) gitObject.get("id"))

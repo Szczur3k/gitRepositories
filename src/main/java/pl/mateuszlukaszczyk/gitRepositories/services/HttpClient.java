@@ -9,11 +9,11 @@ import java.net.URL;
 @Component
 public class HttpClient {
 
-    public String getResponseFromOwnerRepository(String owner, String repositoryName) {
+    public String getResponseFromOwnerRepository(String owner) {
         RestTemplate restTemplate = new RestTemplate();
         URL url = null;
         try {
-            url = new URL("https://api.github.com/" + getOwnerName(owner) + "/" + getRepositoryName(repositoryName));
+            url = new URL("https://api.github.com/users/" + owner + "/" + "repos");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -24,19 +24,22 @@ public class HttpClient {
         RestTemplate restTemplate = new RestTemplate();
         URL url = null;
         try {
-            url = new URL("https://api.github.com/" + getOwnerName(owner));
+            url = new URL("https://api.github.com/users/" + owner);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         return restTemplate.getForObject(String.valueOf(url), String.class);
     }
 
-    private Object getRepositoryName(String repositoryName) {
-        return repositoryName;
-    }
-
-    private Object getOwnerName(String owner) {
-        return owner;
+    public String getDefunkt() {
+        RestTemplate restTemplate = new RestTemplate();
+        URL url = null;
+        try {
+            url = new URL("https://api.github.com/users/defunkt");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return restTemplate.getForObject(String.valueOf(url), String.class);
     }
 
 }
