@@ -20,23 +20,10 @@ public class GitController {
         return "Now I will start to writing an application";
     }
 
-    @GetMapping("/repositories/{owner}/repos")
+    @GetMapping("/repositories/{owner}")
     public String getApiGit(@PathVariable(value = "owner") String owner){
         return gitService.getHttpClientResponseFromOwnerRepository(owner);
     }
-
-    @GetMapping("/repositories/{owner}/")
-    public GitResponse getApiGitResponse(@PathVariable(value = "owner") String owner) {
-        return gitService.getGitResponseInEntity(owner);
-
-    }
-
-    @GetMapping("/repositories")
-    public GitResponse getApiFromOwnerDefunkt() {
-        return gitService.getApiDefunkt();
-
-    }
-
 }
 
 /* GET/repositories/{owner}/{repository-name}
