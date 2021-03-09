@@ -1,56 +1,42 @@
 package pl.mateuszlukaszczyk.gitRepositories.services;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.stereotype.Component;
+import pl.mateuszlukaszczyk.gitRepositories.models.GitRepository;
 import pl.mateuszlukaszczyk.gitRepositories.models.GitResponse;
 
-@Component
 public class JsonParser {
 
     public static GitResponse parseResponseToGitResponse(String responseBody) {
         JSONObject gitObject = new JSONObject(responseBody);
         return GitResponse.builder()
-                .id((Integer) gitObject.get("id"))
-                .login((String) gitObject.get("login"))
-                .createdAt((String) gitObject.get("created_at"))
-                .updatedAt((String) gitObject.get("updated_at"))
-                .userURLGitHub((String) gitObject.get("html_url"))
-                .userURLRepo((String) gitObject.get("repos_url"))
+                .id(gitObject.getInt("id"))
+                .login(gitObject.getString("login"))
+                .createdAt(gitObject.getString("created_at"))
+                .updatedAt(gitObject.getString("updated_at"))
+                .userURLGitHub(gitObject.getString("html_url"))
+                .userURLRepo(gitObject.getString("repos_url"))
+                .build();
+    }
+
+    public static GitRepository parseResponseToGitRepoitory(String responseBody) {
+        JSONObject jsonResponseBody = new JSONObject(responseBody);
+        return GitRepository.builder()
+                .fullName(jsonResponseBody.getString("full_name"))
+                .description(jsonResponseBody.getString("description"))
+                .cloneUrl(jsonResponseBody.getString("clone_url"))
+                .createdAt(jsonResponseBody.getString("created_at"))
+                .build();
+    }
+
+    public static GitRepository parseResponseToGitRepositoryFromArray(String responseBody) {
+        JSONArray jsonArrayResponseBody = new JSONArray(responseBody);
+        JSONObject jsonObjectResponseBody = jsonArrayResponseBody.getJSONObject(0);
+        return GitRepository.builder()
+                .fullName(jsonObjectResponseBody.getString("full_name"))
+                .description(jsonObjectResponseBody.getString("description"))
+                .cloneUrl(jsonObjectResponseBody.getString("clone_url"))
+                .createdAt(jsonObjectResponseBody.getString("created_at"))
                 .build();
     }
 }
-
-//{
-//        "login": "defunkt",
-//        "id": 2,
-//        "node_id": "MDQ6VXNlcjI=",
-//        "avatar_url": "https://avatars.githubusercontent.com/u/2?v=4",
-//        "gravatar_id": "",
-//        "url": "https://api.github.com/users/defunkt",
-//        "html_url": "https://github.com/defunkt",
-//        "followers_url": "https://api.github.com/users/defunkt/followers",
-//        "following_url": "https://api.github.com/users/defunkt/following{/other_user}",
-//        "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
-//        "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
-//        "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
-//        "organizations_url": "https://api.github.com/users/defunkt/orgs",
-//        "repos_url": "https://api.github.com/users/defunkt/repos",
-//        "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
-//        "received_events_url": "https://api.github.com/users/defunkt/received_events",
-//        "type": "User",
-//        "site_admin": false,
-//        "name": "Chris Wanstrath",
-//        "company": null,
-//        "blog": "http://chriswanstrath.com/",
-//        "location": null,
-//        "email": null,
-//        "hireable": null,
-//        "bio": "🍔",
-//        "twitter_username": null,
-//        "public_repos": 107,
-//        "public_gists": 273,
-//        "followers": 21150,
-//        "following": 210,
-//        "created_at": "2007-10-20T05:24:19Z",
-//        "updated_at": "2019-11-01T21:56:00Z"
-//        }
