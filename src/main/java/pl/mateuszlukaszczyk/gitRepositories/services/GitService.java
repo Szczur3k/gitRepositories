@@ -1,19 +1,21 @@
 package pl.mateuszlukaszczyk.gitRepositories.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import pl.mateuszlukaszczyk.gitRepositories.WebClient.HttpClient;
 import pl.mateuszlukaszczyk.gitRepositories.models.GitRepository;
 import pl.mateuszlukaszczyk.gitRepositories.models.GitResponse;
 
 import java.util.List;
 
 @Service
-@ComponentScan
+@RequiredArgsConstructor
 public class GitService {
 
     @Autowired
-    HttpClient httpClient;
+    final HttpClient httpClient;
 
     public List<GitRepository> getResponseFromOwnerRepoFromHttpClient(String owner) {
         return JsonParser.parseResponseToGitRepositoryFromArray(httpClient.getResponseFromOwnerAllRepositories(owner));

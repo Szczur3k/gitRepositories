@@ -1,4 +1,4 @@
-package pl.mateuszlukaszczyk.gitRepositories.services;
+package pl.mateuszlukaszczyk.gitRepositories.WebClient;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -14,22 +14,21 @@ public class HttpClient {
     URL url = null;
 
     public String getResponseFromOwnerAllRepositories(String owner) {
-        return restTemplate
-                .getForObject(HTTPS_API_GITHUB_COM_USERS + "{owner}/repos",
-                        String.class,
-                        owner);
+        return callGetMethod(HTTPS_API_GITHUB_COM_USERS, "{owner}/repos", owner);
     }
 
     public String getResponseFromOwner(String owner) {
-        return restTemplate.getForObject(HTTPS_API_GITHUB_COM_USERS + "{owner}",
-                String.class,
-                owner);
+        return callGetMethod(HTTPS_API_GITHUB_COM_USERS, "{owner}", owner);
     }
 
     public String getResponseFromOwnerChoosenRepo(String owner, String repositoryName) {
-        return restTemplate.getForObject(HTTPS_API_GITHUB_COM_REPOS + "{owner}/{repositoryName}",
+        return callGetMethod(HTTPS_API_GITHUB_COM_REPOS, "{owner}/{repositoryName}", owner, repositoryName);
+    }
+
+
+    private String callGetMethod(String finalURL, String urlParam, Object... parameters) {
+        return restTemplate.getForObject(finalURL + urlParam,
                 String.class,
-                owner,
-                repositoryName);
+                parameters);
     }
 }
