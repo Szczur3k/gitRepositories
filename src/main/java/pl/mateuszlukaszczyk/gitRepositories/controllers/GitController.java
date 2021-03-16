@@ -7,6 +7,8 @@ import pl.mateuszlukaszczyk.gitRepositories.models.GitRepository;
 import pl.mateuszlukaszczyk.gitRepositories.models.GitResponse;
 import pl.mateuszlukaszczyk.gitRepositories.services.GitService;
 
+import java.util.List;
+
 @RestController
 public class GitController {
 
@@ -27,7 +29,7 @@ public class GitController {
     }
 
     @GetMapping("/repositories/{owner}/repos")
-    public GitRepository getAllRepositoriesFromOwner(@PathVariable(value = "owner") String owner) {
+    public List<GitRepository> getAllRepositoriesFromOwner(@PathVariable(value = "owner") String owner) {
         return gitService.getResponseFromOwnerRepoFromHttpClient(owner);
     }
 

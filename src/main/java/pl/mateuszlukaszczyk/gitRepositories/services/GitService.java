@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import pl.mateuszlukaszczyk.gitRepositories.models.GitRepository;
 import pl.mateuszlukaszczyk.gitRepositories.models.GitResponse;
 
+import java.util.List;
+
 @Service
 @ComponentScan
 public class GitService {
@@ -13,7 +15,7 @@ public class GitService {
     @Autowired
     HttpClient httpClient;
 
-    public GitRepository getResponseFromOwnerRepoFromHttpClient(String owner) {
+    public List<GitRepository> getResponseFromOwnerRepoFromHttpClient(String owner) {
         return JsonParser.parseResponseToGitRepositoryFromArray(httpClient.getResponseFromOwnerAllRepositories(owner));
     }
 
