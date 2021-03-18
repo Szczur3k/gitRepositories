@@ -2,16 +2,13 @@ package pl.mateuszlukaszczyk.gitRepositories.services;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import java.net.MalformedURLException;
-import java.net.URL;
+import pl.mateuszlukaszczyk.gitRepositories.models.GitRepository;
 
 @Component
 public class HttpClient {
     public static final String HTTPS_API_GITHUB_COM_USERS = "https://api.github.com/users/";
     public static final String HTTPS_API_GITHUB_COM_REPOS = "https://api.github.com/repos/";
     RestTemplate restTemplate = new RestTemplate();
-    URL url = null;
 
     public String getResponseFromOwnerAllRepositories(String owner) {
         return restTemplate
@@ -26,10 +23,17 @@ public class HttpClient {
                 owner);
     }
 
-    public String getResponseFromOwnerChoosenRepo(String owner, String repositoryName) {
-        return restTemplate.getForObject(HTTPS_API_GITHUB_COM_REPOS + "{owner}/{repositoryName}",
-                String.class,
+    public GitRepository getResponseFromOwnerChoosenRepo(String owner, String repositoryName) {
+        GitRepository gitSingleRepositoryFromOwner = restTemplate.getForObject(HTTPS_API_GITHUB_COM_REPOS + "{owner}/{repositoryName}",
+                GitRepository.class,
                 owner,
                 repositoryName);
+        return GitRepository.builder()
+                .fullName(gitSingleRepositoryFromOwner.getFullName())
+                .description(gitSingleRepositoryFromOwner.getDescription())
+                .cloneUrl(gitSingleRepositoryFromOwner.getCloneUrl())
+                .createdAt(gitSingleRepositoryFromOwner.getCreatedAt())
+                .stars(gitSingleRepositoryFromOwner.getStars())
+                .build();
     }
 }

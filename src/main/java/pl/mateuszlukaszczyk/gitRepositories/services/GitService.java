@@ -15,15 +15,16 @@ public class GitService {
     @Autowired
     HttpClient httpClient;
 
-    public List<GitRepository> getResponseFromOwnerRepoFromHttpClient(String owner) {
+    public List<GitRepository> getAllRepositoriesFromOwner(String owner) {
         return JsonParser.parseResponseToGitRepositoryFromArray(httpClient.getResponseFromOwnerAllRepositories(owner));
     }
 
-    public GitResponse getGitResponseInEntity(String owner) {
+    public GitResponse getDataFromOwner(String owner) {
         return JsonParser.parseResponseToGitResponse(httpClient.getResponseFromOwner(owner));
     }
 
-    public GitRepository getResponseFromOwnerChoosenRepositoryFromHttpClient(String owner, String repositoryName) {
-        return JsonParser.parseResponseToGitRepoitory(httpClient.getResponseFromOwnerChoosenRepo(owner, repositoryName));
+    public GitRepository getSingleRepositoryFromOwner(String owner, String repositoryName) {
+        return httpClient.getResponseFromOwnerChoosenRepo(owner, repositoryName);
+//        return JsonParser.parseResponseToGitRepoitory(httpClient.getResponseFromOwnerChoosenRepo(owner, repositoryName));
     }
 }

@@ -24,25 +24,6 @@ public class JsonParser {
 
     public static List<GitRepository> parseResponseToGitRepositoryFromArray(String responseBody) {
         JSONArray jsonArrayResponseBody = new JSONArray(responseBody);
-//        JSONObject jsonObjectResponseBody = jsonArrayResponseBody.getJSONObject(0);
-//
-//        List<GitRepository> gitRepositoryList = null;
-//        Iterator<String> keys = jsonObjectResponseBody.keys();
-//        while (keys.hasNext()) {
-//            String key = keys.next();
-//            JSONObject value = jsonObjectResponseBody.getJSONObject(key);
-//
-//            //Powinienes zapisac metodę w nowej klasie JSON ktora przelatuje po JSONObject i zapisuje je do klasy REPO
-//            if (!value.equals(JSONObject.class)) {
-//                gitRepositoryList.add(GitRepository.builder()
-//                        .fullName(value.getString("full_name"))
-//                        .description(value.getString("description"))
-//                        .cloneUrl(value.getString("clone_url"))
-//                        .createdAt(value.getString("created_at"))
-//                        .build());
-//            }
-//        }
-
         return GitChangerJson.changerJSONArrayToGitRepositoryList(jsonArrayResponseBody);
     }
 }

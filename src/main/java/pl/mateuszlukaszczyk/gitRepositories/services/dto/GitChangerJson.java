@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import pl.mateuszlukaszczyk.gitRepositories.models.GitRepository;
 import pl.mateuszlukaszczyk.gitRepositories.models.GitResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GitChangerJson {
@@ -32,7 +33,7 @@ public class GitChangerJson {
 
 
     public static List<GitRepository> changerJSONArrayToGitRepositoryList(JSONArray jsonArray) {
-        List<GitRepository> gitRepositoryList = null;
+        List<GitRepository> gitRepositoryList = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonobject = jsonArray.getJSONObject(i);
             String fullName = jsonobject.getString("full_name");
@@ -45,9 +46,8 @@ public class GitChangerJson {
                     .cloneUrl(cloneUrl)
                     .createdAt(createdAt)
                     .build();
-            if (gitRepositoryList != null) {
-                gitRepositoryList.add(gitRepository);
-            }
+            gitRepositoryList.add(gitRepository);
+
         }
         return gitRepositoryList;
     }
