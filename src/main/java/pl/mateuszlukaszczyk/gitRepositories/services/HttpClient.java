@@ -15,13 +15,16 @@ public class HttpClient {
 
     public GitOwner getResponseFromOwner(String owner) {
         String restTemplate = getRestTemplate(HTTPS_API_GITHUB_COM_USERS, "{owner}", owner);
-        return gitOwnerMapper.map(restTemplate);
+        return gitOwnerMapper.map(restTemplate, "xD");
     }
 
     public GitOwner getResponseFromOwnerChoosenRepo(String owner, String repositoryName) {
         String restTemplateResponse = getRestTemplate(HTTPS_API_GITHUB_COM_REPOS, "{owner}/{repositoryName}", owner, repositoryName);
+        String restTemplateListOfStargazers = getRestTemplate(HTTPS_API_GITHUB_COM_REPOS, "{owner}/{repositoryName}/stargazers", owner, repositoryName);
+        // metoda ktora zwroci liste stargazers;
+
         GitOwnerMapper gitOwnerMapper = new GitOwnerMapper();
-        return gitOwnerMapper.map(restTemplateResponse);
+        return gitOwnerMapper.map(restTemplateResponse, restTemplateListOfStargazers);
     }
 
     public GitOwner getResponseFromOwnerAllRepositories(String owner) {

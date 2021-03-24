@@ -1,6 +1,5 @@
 package pl.mateuszlukaszczyk.gitRepositories.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import java.util.Date;
@@ -13,7 +12,7 @@ public class GitOwner {
     String fullName;
     String description;
     String cloneUrl;
-    Stargazers stars;
+    int stars;
     Date createdAt;
 
 }
